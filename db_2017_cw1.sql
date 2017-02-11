@@ -3,7 +3,10 @@
 ;
 
 -- Q2 returns (name)
-
+SELECT name
+FROM person
+WHERE (father is not NULL)
+AND (gender = 'M')
 ;
 
 -- Q3 returns (name)
