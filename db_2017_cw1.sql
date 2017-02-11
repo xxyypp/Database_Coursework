@@ -1,4 +1,9 @@
 -- Q1 returns (name,dod)
+SELECT person.name, person.dod
+FROM person, person
+WHERE mother = (SELECT name
+		FROM person)
+AND (
 
 ;
 
