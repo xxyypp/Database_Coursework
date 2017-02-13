@@ -1,24 +1,23 @@
 -- Q1 returns (name,dod)
-SELECT p_b.name,
-			 p_a.dod
-FROM 	 person p_a, person p_b
-WHERE  p_a.name = p_b.mother
-AND		 p_a.dod IS NOT NULL
-ORDER BY p_b.name ASC
+SELECT person_b.name AS person_b_name,
+			 person_b.mom AS person_b_mom,
+			 person_a.dod AS person_a_dod,
+			 person_a.name AS person_a_name
+FROM person AS person_a
+		 JOIN person AS person_b
+		 ON person_a_name = person_b_mom
+		 AND person_a_dod is not Null
 ;
 
 -- Q2 returns (name)
 SELECT name
 FROM person
-WHERE (father IS NOT NULL)
+WHERE (father is not NULL)
 AND (gender = 'M')
-ORDER BY name ASC
 ;
 
 -- Q3 returns (name)
-SELECT p_a.name
-FROM person p_a, person p_b
-WHERE 
+
 ;
 
 -- Q4 returns (name,father,mother)
