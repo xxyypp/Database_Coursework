@@ -31,22 +31,24 @@ ORDER BY name ASC
 ;
 
 -- Q4 returns (name,father,mother)
-SELECT DISTINCT p_first.name, p_first.dob, p_first.father, p_first.mother
+SELECT DISTINCT p_first.name,p_first.father,p_first.mother
 FROM person AS p_first,
-		 person AS p_other
-WHERE p_first.father IS NOT NULL
-AND p_first.mother IS NOT NULL
-AND p_first.father = p_other.father
+		 person as p_other
+WHERE p_first.father = p_other.father
 AND p_first.mother = p_other.mother
---AND p_first.dob > p_other.dob
---AND p_first.dob > ALL(SELECT p_other.dob
---											FROM person AS p_other
---											WHERE p_first.father = p_other.father
---											AND p_first.mother = p_other.mother)
+AND p_first.name <> p_other.name
+AND p_first.dob <= ALL (SELECT DISTINCT p_other.dob
+												FROM person AS p_other
+												WHERE p_first.father = p_other.father
+												AND p_other.mother = p_first.mother
+											  )
 ORDER BY p_first.father ASC
 ;
 
 -- Q5 returns (name,popularity)
+SELECT SUBSTRING(name FROM 1 FOR POSITION('%' IN name)) AS firstname
+--count(namesubstr) AS popularity
+FROM person
 
 ;
 
