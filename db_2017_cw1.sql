@@ -4,7 +4,6 @@ SELECT p_b.name,
 FROM   person AS p_a, person AS p_b
 WHERE  p_a.name = p_b.mother
 AND    p_a.dod IS NOT NULL
-ORDER BY p_b.name ASC
 ;
 
 -- Q2 returns (name)
@@ -42,7 +41,7 @@ AND p_first.dob <= ALL (SELECT DISTINCT p_other.dob
 			FROM person AS p_other
 			WHERE p_first.father = p_other.father
 			AND p_other.mother = p_first.mother)
-ORDER BY p_first.father ASC
+ORDER BY p_first.name ASC
 ;
 
 -- Q5 returns (name,popularity)
@@ -52,7 +51,7 @@ FROM person AS p
 WHERE SUBSTRING(name FROM '[a-zA-Z]+') <> ''
 GROUP BY SUBSTRING(name FROM '[a-zA-Z]+')
 HAVING COUNT(SUBSTRING(name FROM '[a-zA-Z]+')) > 1
-ORDER BY popularity DESC
+ORDER BY popularity DESC,name
 ;
 
 
@@ -74,7 +73,7 @@ ORDER BY p_parent.name
 SELECT father,
        mother,
        name AS child,
-       RANK() OVER (PARTITION BY father ORDER BY dob DESC) AS born
+       RANK() OVER (PARTITION BY father ORDER BY dob ASC) AS born
 FROM person
 WHERE father IS NOT NULL
 AND mother IS NOT NULL
